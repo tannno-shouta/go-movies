@@ -29,17 +29,14 @@ export default function App() {
           </div>
  
           <div className="col-md-10">
-            <Routes>
-              <Route path="/movies">
-                <Movies />
-              </Route>
-              <Route path="/admin">
-                <Admin />
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Routes>
+          <Routes>
+            <Route path="/movies" element={<Movies />}>
+            </Route>
+            <Route path="/admin"  element={<Admin />}>
+            </Route>
+            <Route path="/"  element={<Admin />}>
+            </Route>
+          </Routes>
           </div>
         </div>
       </div>
