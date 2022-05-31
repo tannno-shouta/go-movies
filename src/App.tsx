@@ -1,4 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import Home from './components/Home'
+import Movies from './components/Movies'
+import Admin from './components/Admin'
  
 export default function App() {
   return (
@@ -30,11 +33,11 @@ export default function App() {
  
           <div className="col-md-10">
           <Routes>
+            <Route path="/Home"  element={<Home />}>
+            </Route>
             <Route path="/movies" element={<Movies />}>
             </Route>
             <Route path="/admin"  element={<Admin />}>
-            </Route>
-            <Route path="/"  element={<Admin />}>
             </Route>
           </Routes>
           </div>
@@ -42,15 +45,4 @@ export default function App() {
       </div>
     </Router>
   )
-}
- 
-const Home = () => {
-  return <h2>Home</h2>
-}
- 
-const Movies = () => {
-  return <h2>Movies</h2>
-}
-const Admin = () => {
-  return <h2>Manage Catalog</h2>
 }
