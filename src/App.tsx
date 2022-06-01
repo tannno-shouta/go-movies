@@ -1,7 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useMatch} from 'react-router-dom'
 import Home from './components/Home'
 import Movies from './components/Movies'
 import Admin from './components/Admin'
+import Categories from './components/Categories'
+import OneMovie from './components/OneMovie'
  
 export default function App() {
   return (
@@ -35,7 +37,18 @@ export default function App() {
           <Routes>
             <Route path="/Home"  element={<Home />}>
             </Route>
+            <Route path="/movies/:id" element={<OneMovie />}/>
             <Route path="/movies" element={<Movies />}>
+            </Route>
+            <Route  path="/by-category"element={<CategoryPage />}>
+            <Route
+                path="/by-category/comedy"
+                render={(props) => <Categories {...props} title={`Comedy`}/>}
+              />
+            <Route
+                path="/by-category/drama"
+                render={(props) => <Categories {...props} title={`Drama`}/>}
+              />
             </Route>
             <Route path="/admin"  element={<Admin />}>
             </Route>
@@ -44,5 +57,21 @@ export default function App() {
         </div>
       </div>
     </Router>
+  )
+}
+
+const CategoryPage = () => {
+  let { path, url } = useMatch()
+  console.log(path, url)
+ 
+  return (
+    <div>
+      <h2>Categories</h2>
+ 
+      <ul>
+        <li><Link to={`${path}/comedy`}>Comedy</Link></li>
+        <li><Link to={`${url}/drama`}>Drama</Link></li>
+      </ul>
+    </div>
   )
 }
