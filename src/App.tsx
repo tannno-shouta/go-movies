@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Routes, Route, Link, useMatch} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useLocation} from 'react-router-dom'
 import Home from './components/Home'
 import Movies from './components/Movies'
 import Admin from './components/Admin'
 import Categories from './components/Categories'
 import OneMovie from './components/OneMovie'
- 
+
 export default function App() {
   return (
     <Router>
@@ -15,7 +15,7 @@ export default function App() {
           </h1>
           <hr className="mb-3" />
         </div>
- 
+
         <div className="row">
           <div className="col-md-2">
             <nav>
@@ -27,12 +27,15 @@ export default function App() {
                   <Link to="/movies">Movies</Link>
                 </li>
                 <li className="list-group-item">
+                  <Link to="/by-category">Categories</Link>
+                </li>
+                <li className="list-group-item">
                   <Link to="/admin">Manage Catalog</Link>
                 </li>
               </ul>
             </nav>
           </div>
- 
+
           <div className="col-md-10">
           <Routes>
             <Route path="/Home"  element={<Home />}>
@@ -41,15 +44,15 @@ export default function App() {
             <Route path="/movies" element={<Movies />}>
             </Route>
             <Route  path="/by-category"element={<CategoryPage />}>
+            </Route>
             <Route
                 path="/by-category/comedy"
-                render={(props) => <Categories {...props} title={`Comedy`}/>}
+                element={<Categories title="Comedy" />}
               />
             <Route
                 path="/by-category/drama"
-                render={(props) => <Categories {...props} title={`Drama`}/>}
+                element={<Categories title="Drama" />}
               />
-            </Route>
             <Route path="/admin"  element={<Admin />}>
             </Route>
           </Routes>
@@ -61,16 +64,15 @@ export default function App() {
 }
 
 const CategoryPage = () => {
-  let { path, url } = useMatch()
-  console.log(path, url)
- 
+  let path = useLocation()
+
   return (
     <div>
       <h2>Categories</h2>
- 
+
       <ul>
-        <li><Link to={`${path}/comedy`}>Comedy</Link></li>
-        <li><Link to={`${url}/drama`}>Drama</Link></li>
+        <li><Link to={`${path.pathname}/comedy`}>Comedy</Link></li>
+        <li><Link to={`${path.pathname}/drama`}>Drama</Link></li>
       </ul>
     </div>
   )
